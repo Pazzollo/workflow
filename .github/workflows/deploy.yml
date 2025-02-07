@@ -1,0 +1,24 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - master  # ili main, zavisno od vaše glavne grane
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to DigitalOcean
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        USER: your_username  # Zamena sa vašim korisničkim imenom
+        HOST: your_server_ip  # Zamena sa IP adresom vašeg servera
+      run: |
+        echo "$SSH_PRIVATE_KEY" > private_key
+        chmod 600 private_key
+        scp -o StrictHostKeyChecking=no -i private_key -r ./* $USER@$HOST:/putanja/do/aplikacije
