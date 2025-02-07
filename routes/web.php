@@ -6,6 +6,7 @@ use App\Http\Controllers\TransferController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DimensionController;
 use App\Http\Controllers\FinishController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MaterialtypeController;
@@ -54,6 +55,8 @@ Route::middleware('auth')->group(function(){
             ->except('destroy')->names('warehouseCompany');
         Route::resource('warehouse/contacts', ContactController::class)
             ->except('destroy')->names('contacts');
+        Route::resource('warehouse/dimension', DimensionController::class)
+            ->except('destroy')->names('dimension');
     });
 
     Route::middleware([Associate::class])->group(function(){

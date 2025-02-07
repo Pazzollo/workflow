@@ -1,0 +1,3 @@
+Napraviti formu za novi format papira
+
+Napraviti stranice sa listama vrsta materijala, premaza

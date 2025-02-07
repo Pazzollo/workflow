@@ -16,9 +16,7 @@ class Material extends Model
         'materialtype_id',
         'brand',
         'finish_id',
-        'width',
-        'length',
-        'dimension_name',
+        'dimension_id',
         'weight',
         'tickness',
         'description'
@@ -40,5 +38,10 @@ class Material extends Model
     public function reservations() : HasMany
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function dimension() : BelongsTo
+    {
+        return $this->belongsTo(Dimension::class);
     }
 }
