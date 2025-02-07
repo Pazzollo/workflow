@@ -1,0 +1,164 @@
+@import 'bootstrap/scss/bootstrap';
+
+body {
+    background-color: #fbfbfb;
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    margin: 0 auto;
+}
+
+label {
+    font-size: 12px;
+}
+
+#main {
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+    color: #fbfbfb;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #fbfbfb;
+}
+
+header,
+#sidebar {
+    background-color:#29292c !important;
+}
+
+header {
+    padding: 10px;
+    font-size: large;
+    width: 100%;
+}
+
+.header-box {
+    width: 30px;
+    height: 30px;
+    background-color: #272727;
+    border: #9a9a9a 1px solid;
+    border-radius: 20%;
+}
+
+.header-box:hover {
+    background-color: #e26f04;
+}
+
+.header-box-wide {
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    background-color: #272727;
+    border: #9a9a9a 1px solid;
+    border-radius: 5px;
+}
+
+.header-box-wide:hover {
+    background-color: #e26f04;
+}
+
+#sidebar {
+    width: 0;
+    height: 94vh;
+    z-index: 10;
+    visibility: hidden;
+}
+
+#content {
+    width: 100%;
+    height: 92vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@media only screen and (min-width: 360px)
+{
+    #wrapper {
+        width: 360px;
+    }
+
+    .card-buttons {
+        display: flex;
+        justify-content: space-between;
+        font-size: 17px;
+    }
+}
+
+@media only screen and (min-width: 375px)
+{
+    #wrapper {
+        width: 375px;
+    }
+
+}
+
+@media only screen and (min-width: 390px)
+{
+    #wrapper {
+        width: 390px;
+    }
+
+    .card-buttons {
+        font-size: 17px;
+    }
+}
+
+@media only screen and (min-width: 412px)
+{
+    #wrapper {
+        width: 412px;
+    }
+}
+
+@media only screen and (min-width: 428px)
+{
+    #wrapper {
+        width: 428px;
+    }
+
+    .description {
+        display: flex;
+        height: 25px;
+        line-height: 25px;
+    }
+}
+
+@media only screen and (min-width: 500px)
+{
+    #wrapper {
+        width: 500px;
+    }
+
+    // #sidebar {
+    //     width: 150px;
+    //     padding: 10px;
+    //     visibility: visible;
+    // }
+
+    #content {
+        position: relative;
+    }
+}
+
+@media only screen and (min-width: 600px)
+{
+    #wrapper {
+        width: 600px;
+    }
+
+    #content {
+        padding-left: 10px !important;
+    }
+}
