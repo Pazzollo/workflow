@@ -21,7 +21,7 @@ jobs:
 
     - name: Deploy to DigitalOcean
       run: |
-        ssh your_username@your_server_ip << 'EOF'
+        ssh Pazzollo@104.248.22.188 << 'EOF'
         cd /putanja/do/aplikacije
         git pull origin master  # ili main, zavisno od vaše glavne grane
         composer install --no-dev --optimize-autoloader
