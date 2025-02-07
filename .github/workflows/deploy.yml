@@ -1,3 +1,4 @@
+Copy
 name: Deploy to DigitalOcean
 
 on:
@@ -13,12 +14,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
     - name: Deploy to DigitalOcean
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        USER: your_username  # Zamena sa vašim korisničkim imenom
-        HOST: your_server_ip  # Zamena sa IP adresom vašeg servera
       run: |
-        echo "$SSH_PRIVATE_KEY" > private_key
-        chmod 600 private_key
-        scp -o StrictHostKeyChecking=no -i private_key -r ./* $USER@$HOST:/putanja/do/aplikacije
+        ssh your_username@your_server_ip << 'EOF'
+        cd /putanja/do/aplikacije
+        git pull origin master  # ili main, zavisno od vaše glavne grane
+        composer install --no-dev --optimize-autoloader
+        npm install
+        npm run build
+        php artisan migrate --force
+        EOF
