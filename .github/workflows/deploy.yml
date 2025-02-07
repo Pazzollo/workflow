@@ -1,0 +1,31 @@
+Copy
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - master  # ili main, zavisno od vaše glavne grane
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to DigitalOcean
+      run: |
+        ssh Pazzollo@104.248.22.188 << 'EOF'
+        cd /putanja/do/aplikacije
+        git pull origin master  # ili main, zavisno od vaše glavne grane
+        composer install --no-dev --optimize-autoloader
+        npm install
+        npm run build
+        php artisan migrate --force
+        EOF
