@@ -20,7 +20,7 @@ jobs:
 
       - name: Deploy to DigitalOcean
         run: |
-          ssh Pazzollo@104.248.22.188 << 'EOF'
+          ssh root@104.248.22.188 << 'EOF'
           cd /var/www/laravel
           git pull origin master  # ili main
           composer install --no-dev --optimize-autoloader
