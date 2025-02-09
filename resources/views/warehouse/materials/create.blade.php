@@ -55,31 +55,25 @@
                     </select>
                 </div>
 
-                <div class="d-flex gap-2">
-                    <div class="mb-2">
-                        <label for="exampleInputPassword1" class="form-label mb-0">Širina *</label>
-                        <input type="number" class="form-control @error('width') border border-danger @enderror"
-                            id="exampleInputPassword1" value="{{ old('width') }}" name="width">
+                <div class="d-flex gap-2 w-100">
+                    <div class="mb-2 w-50">
+                        <label for="dimension_id" class="form-label mb-0">Format *</label>
+                        <select class="form-select @error('dimension_id') border border-danger @enderror"
+                            aria-label="Default select example" name="dimension_id">
+                            <option value="0">Izaberite format *</option>
+                            @foreach ($dimensions as $dimension)
+                                <option value="{{ $dimension->id }}">{{ $dimension->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="mb-2">
-                        <label for="exampleInputPassword1" class="form-label mb-0">Dužina (smer tabaka) *</label>
-                        <input type="number" class="form-control @error('length') border border-danger @enderror"
-                            id="exampleInputPassword1" value="{{ old('length') }}" name="length">
-                    </div>
-                </div>
-                <div class="d-flex gap-2">
-                    <div class="mb-2">
-                        <label for="exampleInputPassword1" class="form-label mb-0">Naziv formata *</label>
-                        <input type="text"
-                            class="form-control @error('dimension_name') border border-danger @enderror"
-                            id="exampleInputPassword1" value="{{ old('dimension_name') }}" name="dimension_name">
-                    </div>
-
-                    <div class="mb-2">
+                    <div class="mb-2 w-50">
                         <label for="exampleInputPassword1" class="form-label mb-0">Gramatura *</label>
                         <input type="number" class="form-control @error('weight') border border-danger @enderror"
                             id="exampleInputPassword1" value="{{ old('weight') }}" name="weight">
                     </div>
+                </div>
+                <div class="d-flex gap-2">
+
                 </div>
 
                 <div class="mb-2">

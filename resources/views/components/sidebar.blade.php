@@ -8,10 +8,10 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
             <li><a class="dropdown-item over:underline mb-2" href="{{ route('material.index') }}">Lista&nbsp;materijala</a></li>
-            <li><a class="dropdown-item over:underline" href="{{ route('material_type.create') }}">Nova vrsta materijala</a></li>
-            <li><a class="dropdown-item over:underline" href="{{ route('finish.create') }}">Novi tip premaza</a></li>
+            <li><a class="dropdown-item over:underline" href="{{ route('material_type.index') }}">Vrste materijala</a></li>
+            <li><a class="dropdown-item over:underline" href="{{ route('finish.index') }}">Tipovi premaza</a></li>
             <li><a class="dropdown-item over:underline" href="{{ route('dimension.index') }}">Formati papira</a></li>
-            <li><a class="dropdown-item over:underline" href="{{ route('material.create') }}">Novi materijal</a></li>
+            <li><a class="dropdown-item over:underline text-warning" href="{{ route('material.create') }}">Novi materijal</a></li>
             <li><a class="dropdown-item over:underline mt-3" href="{{ route('warehouse.order') }}">Poručivanje</a></li>
         </ul>
     </div>

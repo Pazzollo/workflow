@@ -14,7 +14,9 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\WarehouseCompanyController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Middleware\Admin;
 use App\Http\Middleware\Associate;
+use App\Http\Middleware\Magacin;
 use App\Http\Middleware\Warehouse;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +40,7 @@ Route::middleware('auth')->group(function(){
     Route::get('auth', [AuthController::class, 'index'])->name('auth.index');
 
     Route::middleware([Warehouse::class])->group(function(){
+
         Route::resource('warehouse/material', MaterialController::class)
             ->except('destroy','update');
         Route::resource('warehouse/warehouse', WarehouseController::class)
@@ -45,18 +48,40 @@ Route::middleware('auth')->group(function(){
 
         Route::get('warehouse/warehouse/order', [WarehouseController::class, 'order'])->name('warehouse.order');
 
-        Route::resource('warehouse/material_type', MaterialtypeController::class)
-            ->only('index','create','store');
-        Route::resource('warehouse/finish', FinishController::class)
-            ->only('index', 'create', 'store');
-        Route::resource('warehouse/reservation', ReservationController::class)
-            ->only('show', 'create', 'store', 'destroy', 'edit', 'update');
         Route::resource('warehouse/company', WarehouseCompanyController::class)
             ->except('destroy')->names('warehouseCompany');
+
+        Route::middleware([Admin::class])->group(function(){
+            Route::resource('warehouse/dimension', DimensionController::class)
+                ->only('store', 'edit', 'create', 'update')->names('dimension');
+            Route::resource('warehouse/finish', FinishController::class)
+                ->only('store', 'edit', 'create', 'update')->names('finish');
+            Route::resource('warehouse/material_type', MaterialtypeController::class)
+                ->only('store', 'edit', 'create', 'update')->names('material_type');
+            Route::resource('warehouse/contacts', ContactController::class)
+                ->only('store', 'edit', 'create', 'update')->names('contacts');
+        });
+
+        Route::middleware([Magacin::class])->group(function(){
+            Route::resource('warehouse/reservation', ReservationController::class)
+                ->only('update');
+        });
+
+        Route::resource('warehouse/reservation', ReservationController::class)
+        ->only('show', 'create', 'store', 'destroy', 'edit');
+
         Route::resource('warehouse/contacts', ContactController::class)
-            ->except('destroy')->names('contacts');
+        ->except('destroy')->names('contacts');
+
+        Route::resource('warehouse/material_type', MaterialtypeController::class)
+        ->except('destroy')->names('material_type');
+
         Route::resource('warehouse/dimension', DimensionController::class)
             ->except('destroy')->names('dimension');
+
+        Route::resource('warehouse/finish', FinishController::class)
+            ->except('destroy')->names('finish');
+
     });
 
     Route::middleware([Associate::class])->group(function(){

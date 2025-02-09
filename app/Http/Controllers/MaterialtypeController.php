@@ -11,7 +11,9 @@ class MaterialtypeController extends Controller
 
     public function index()
     {
-        //
+        return view('warehouse.materialtype.index', [
+            'materialTypes' => Materialtype::get()->sortBy('name')
+        ]);
     }
 
     public function create()
@@ -40,15 +42,29 @@ class MaterialtypeController extends Controller
     }
     public function show(string $id)
     {
-        //
+        $materialType = Materialtype::find($id);
+        return view('warehouse.materialtype.show', [
+            'materialType' => $materialType
+        ]);
     }
     public function edit(string $id)
     {
-        //
+        $materialType = Materialtype::find($id);
+        return view('warehouse.materialtype.edit', [
+            'materialType' => $materialType
+        ]);
     }
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|min:3|max:64'
+        ]);
+
+        $materialType = Materialtype::find($id);
+
+        $materialType->update($data);
+
+        return redirect()->route('material_type.show', $materialType)->with('success', 'Vrsta materijala je ažurirana');
     }
     public function destroy(string $id)
     {

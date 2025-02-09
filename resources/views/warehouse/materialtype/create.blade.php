@@ -41,19 +41,11 @@
 
                 </form>
             @endif
-            <div id="buttons" class="d-flex gap-2 sticky-bottom p-1 bg-light mt-4">
-                <a href="{{ route('warehouse.index') }}" class="btn btn-sm w-100 text-light" style="background-color: #e25904">
-                    Stanje materijala
+            <x-footer>
+                <a href="{{ route('material_type.index') }}" class="btn btn-sm w-100 btn-outline-dark border-1 mb-2" type="submit">
+                    Sve vrste materijala
                 </a>
-                <a href="{{ route('material.create') }}" class="btn btn-sm w-100 btn-success" type="submit">
-                    Novi materijal
-                </a>
-            </div>
-            <div id="buttons" class="pt-2 px-1">
-                <a href="{{ url()->previous() }}" class="btn btn-sm w-100 btn-secondary " type="submit">
-                    Nazad
-                </a>
-            </div>
+            </x-footer>
         </content>
     </main>
 

@@ -24,6 +24,11 @@ class ReservationController extends Controller
             'id' => 'required|numeric|min:1|max:'.$material->max('id')
         ]);
 
+        if(auth()->user()->role_id === 5) {
+            return redirect()->route('reservation.show', $validatedData['id'])
+                ->with('error', 'Nemate pravo na rezervaciju');
+        }
+
         return view('warehouse.reservations.create',[
             'material' => $material->where('id', $validatedData['id'])->first(),
             'quantities' => Quantity::where('material_id', $validatedData['id'])->get(),
@@ -71,6 +76,10 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::where('id', $id)->where('reserved', 1)->with(['material', 'user'])->first();
         // dd($reservation);
+        if($reservation->user_id != auth()->user()->id) {
+            return redirect()->route('reservation.show', $reservation->material_id)
+                ->with('error', 'Rezervaciju može izmeniti samo '. $reservation->user->name);
+        }
         $material = Material::where('id', $reservation->material_id)->with('materialtype')->first();
         $quantities = Quantity::where('material_id', $reservation->material_id)->with('supplier')->orderBy('created_at', 'desc')->get();
         return view('warehouse.reservations.edit', [
@@ -89,7 +98,7 @@ class ReservationController extends Controller
         ]);
         if($reservation->user_id != auth()->user()->id) {
             return redirect()->route('reservation.show', $reservation->material_id)
-                ->with('error', 'Rezervaciju može izmeniti samo '. $reservation->user->first_name . ' ' . $reservation->user->last_name);
+                ->with('error', 'Rezervaciju može izmeniti samo '. $reservation->user->name);
         }
         $reservation->update($validatedData);
 

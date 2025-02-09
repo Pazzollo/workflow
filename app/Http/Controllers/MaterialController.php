@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dimension;
 use App\Models\Finish;
 use App\Models\Material;
 use App\Models\Materialtype;
@@ -35,38 +36,35 @@ class MaterialController extends Controller
             'materials' => $material->with(['materialtype', 'finish'])->orderBy('materialtype_id')->orderBy('weight')->get()
         ]);
     }
-    public function create(Material $material, Finish $finish, Materialtype $materialtype)
+    public function create(Material $material, Finish $finish, Materialtype $materialtype, Dimension $dimension)
     {
         return view('warehouse.materials.create', [
-            'materials' => $material->get(),
+            // 'materials' => $material->get(),
             'finishes' => $finish->get(),
-            'materialTypes' => $materialtype->get()
+            'materialTypes' => $materialtype->get(),
+            'dimensions' => $dimension->get()
         ]);
     }
-    public function store(Material $materials, Request $request)
+    public function store(Material $material, Request $request)
     {
         $validatedData = $request->validate([
-            'materialtype_id' => 'required|numeric|min:1',
+            'materialtype_id' => 'required|numeric',
             'brand' => 'required|string|min:2|max:64',
-            'finish_id' => 'required|numeric|min:1',
-            'width' => 'required|numeric',
-            'length' => 'required|numeric',
-            'dimension_name' => 'required|string|min:2',
+            'finish_id' => 'required|numeric',
+            'dimension_id' => 'required|numeric',
             'weight' => 'required|numeric|min:40',
             'tickness' => 'nullable|numeric|min:40',
             'description' => 'nullable|string|max:64'
         ]);
 
 
-        foreach ($materials->get() as $material) {
+        foreach ($material->get() as $material) {
             if($material['materialtype_id'] == $validatedData['materialtype_id']) {
                 if(strtolower($material['brand']) == strtolower($validatedData['brand'])) {
                     if($material['finish_id'] == $validatedData['finish_id']) {
-                        if($material['width'] == $validatedData['width']) {
-                            if($material['length'] == $validatedData['length']) {
-                                if($material['weight'] == $validatedData['weight']){
-                                    return redirect()->route('material.create')->with('error', 'Materijal sa istim osobinama već postoji!');
-                                }
+                        if($material['dimension_id'] == $validatedData['dimension_id']) {
+                            if($material['weight'] == $validatedData['weight']){
+                                return redirect()->route('material.show', $material['id'])->with('error', 'Materijal sa istim osobinama već postoji!');
                             }
                         }
                     }
@@ -74,7 +72,7 @@ class MaterialController extends Controller
             }
         }
 
-        $materials->create($validatedData);
+        $material->create($validatedData);
 
         return redirect()->route('material.index')->with('success', 'Novi materijal je unet');
     }
@@ -88,7 +86,7 @@ class MaterialController extends Controller
         $reservations = Reservation::where('material_id', $material->id)->get();
 
         return view('warehouse.materials.show', [
-            'material' => $material->load('materialtype'),
+            'material' => $material->load('materialtype')->load('dimension'),
             'materialTypes' => $materialTypes,
             'finishes' => $finishes,
             'quantities' => $quantities,

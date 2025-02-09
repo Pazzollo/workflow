@@ -11,7 +11,9 @@ class FinishController extends Controller
 
     public function index()
     {
-        //
+        return view('warehouse.finish.index', [
+            'finishes' => Finish::get()->sortBy('name')
+        ]);
     }
 
     public function create()
@@ -53,7 +55,7 @@ class FinishController extends Controller
     {
         //
     }
-    
+
     public function destroy(string $id)
     {
         //

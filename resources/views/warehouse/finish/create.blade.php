@@ -38,8 +38,14 @@
 
             </form>
 
-            <x-footer />
-            
+            <x-footer>
+
+                <a href="{{ route('finish.index') }}" class="btn btn-sm w-100 btn-outline-dark border-1 mb-2" type="submit">
+                    Svi tipovi premaza
+                </a>
+
+            </x-footer>
+
         </content>
     </main>
 
