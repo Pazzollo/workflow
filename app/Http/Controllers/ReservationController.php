@@ -81,7 +81,7 @@ class ReservationController extends Controller
                 ->with('error', 'Rezervaciju može izmeniti samo '. $reservation->user->name);
         }
         $material = Material::where('id', $reservation->material_id)->with('materialtype')->first();
-        $quantities = Quantity::where('material_id', $reservation->material_id)->with('supplier')->orderBy('created_at', 'desc')->get();
+        $quantities = Quantity::where('material_id', $reservation->material_id)->orderBy('created_at', 'desc')->get();
         return view('warehouse.reservations.edit', [
             'reservation' => $reservation,
             'material' => $material,
