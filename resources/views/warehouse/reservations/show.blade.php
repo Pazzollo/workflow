@@ -47,8 +47,8 @@
                                 <div class="list-group-item list-group-item-action bg-primary text-light px-2"
                                     aria-current="true">
                                     <div class="d-flex w-100 justify-content-between">
-                                        <small class="mb-0">{{ mb_substr($reservation->user->first_name, 0, 1) }}.
-                                            {{ $reservation->user->last_name }}</small>
+                                        {{-- <small class="mb-0">{{ mb_substr($reservation->user->first_name, 0, 1) }}. --}}
+                                            {{ $reservation->user->name }}</small>
                                         <small class="">{{ $reservation->created_at->format('d.m.Y.') }}</small>
                                     </div>
                                     <div class="d-flex justify-content-between">
