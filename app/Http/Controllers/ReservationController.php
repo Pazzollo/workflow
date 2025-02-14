@@ -122,7 +122,7 @@ class ReservationController extends Controller
                     $data['material_id'] = $reservation->material_id;
                     $data['quantity'] = 0 - $reservation->quantity;
                     $data['description'] = $reservation->description;
-                    $data['supplier_id'] = 1;
+                    $data['company_id'] = $reservation->quantity->company_id;
                     $data['transfer'] = "Out";
                     $data['measure'] = "tabaka";
                     // dd($data);

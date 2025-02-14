@@ -21,6 +21,7 @@ use App\Http\Middleware\Warehouse;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WorkflowControllers\WorkflowController;
 
 Route::get('/', function () {
     return redirect()->route('auth.index');
@@ -81,6 +82,9 @@ Route::middleware('auth')->group(function(){
 
         Route::resource('warehouse/finish', FinishController::class)
             ->except('destroy')->names('finish');
+
+        Route::resource('workflow', WorkflowController::class)
+            ->only('index');
 
     });
 

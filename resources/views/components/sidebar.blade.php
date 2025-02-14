@@ -53,7 +53,7 @@
         <div class="my-3"><a href="{{ $value }}" class="hover:underline">{{ $label }}</a></div>
     @endforeach
     <div class="bg-white mb-2" style="height: 1px; margin-top: 200px"></div>
-    <a href="{{ route('warehouse.index') }}" class="hover:underline btn btn-sm btn-light w-100 mt-2">Radni nalozi</a>
+    <a href="{{ route('workflow.index') }}" class="hover:underline btn btn-sm btn-light w-100 mt-2">Radni nalozi</a>
     @if (Auth::user()->role_id == 1)
         <a href="{{ route('company.index') }}" class="hover:underline btn btn-sm btn-light w-100 mt-2">Saradnici</a>
     @elseif (Auth::user()->role_id == 2)
