@@ -134,7 +134,7 @@ class ReservationController extends Controller
                         return redirect()->route('reservation.show', $reservation->material_id)->with('error', 'Nema dovoljno materijala na stanju');
                     }
                 } catch (\Throwable $th) {
-                    return redirect()->route('reservation.show', $reservation->material_id)->with('error', 'Materijal nije skinut sa rezervacije');
+                    return redirect()->route('reservation.show', $reservation->material_id)->with('error', 'Materijal nije skinut sa rezervacije ' . $th->getMessage());
                 }
                 return redirect()->route('reservation.show', $reservation->material_id)->with('success', 'Materijal je skinut sa stanja');
             } else {
