@@ -122,7 +122,7 @@ class ReservationController extends Controller
                     $data['material_id'] = $reservation->material_id;
                     $data['quantity'] = 0 - $reservation->quantity;
                     $data['description'] = $reservation->description;
-                    $data['company_id'] = $reservation->quantity->company_id;
+                    $data['company_id'] = 1;
                     $data['transfer'] = "Out";
                     $data['measure'] = "tabaka";
                     // dd($data);
@@ -134,7 +134,7 @@ class ReservationController extends Controller
                         return redirect()->route('reservation.show', $reservation->material_id)->with('error', 'Nema dovoljno materijala na stanju');
                     }
                 } catch (\Throwable $th) {
-                    return redirect()->route('reservation.show', $reservation->material_id)->with('error', 'Materijal nije skinut sa rezervacije ' . $th->getMessage());
+                    return redirect()->route('reservation.show', $reservation->material_id)->with('error', 'Materijal nije skinut sa rezervacije - ' . $th->getMessage());
                 }
                 return redirect()->route('reservation.show', $reservation->material_id)->with('success', 'Materijal je skinut sa stanja');
             } else {
