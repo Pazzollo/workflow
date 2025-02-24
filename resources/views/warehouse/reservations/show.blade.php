@@ -51,8 +51,10 @@
                                             {{ $reservation->user->name }}</small>
                                         <small class="">{{ $reservation->created_at->format('d.m.Y.') }}</small>
                                     </div>
+
                                     <div class="d-flex justify-content-between">
                                         <small>{{ $reservation->description }}</small>
+                                        <small>{{ $reservation->company->name }}</small>
                                         <small>{{ number_format($reservation->quantity, 0, ',', '.') }} tabaka</small>
                                     </div>
                                     <div class="d-flex gap-2">

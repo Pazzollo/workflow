@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Finish;
 use App\Models\Material;
 use App\Models\Materialtype;
@@ -18,7 +19,7 @@ class ReservationController extends Controller
         //
     }
 
-    public function create(Material $material, Request $request)
+    public function create(Material $material, Request $request, Company $company)
     {
         $validatedData = $request->validate([
             'id' => 'required|numeric|min:1|max:'.$material->max('id')
@@ -32,7 +33,8 @@ class ReservationController extends Controller
         return view('warehouse.reservations.create',[
             'material' => $material->where('id', $validatedData['id'])->first(),
             'quantities' => Quantity::where('material_id', $validatedData['id'])->get(),
-            'reservations' => Reservation::where('material_id', $validatedData['id'])->get()
+            'reservations' => Reservation::where('material_id', $validatedData['id'])->get(),
+            'companies' => $company->where('company_role_id', '!=', 3)->orderBy('name')->get()
         ]);
     }
 
@@ -41,7 +43,8 @@ class ReservationController extends Controller
         $validatedData = $request->validate([
             'material_id' => 'required|numeric',
             'quantity' => 'required|numeric',
-            'description' => 'required|string|max:32'
+            'description' => 'required|string|max:32',
+            'company_id' => 'required|numeric'
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;

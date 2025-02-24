@@ -56,6 +56,11 @@ class Company extends Model
         return $this->hasMany(Quantity::class);
     }
 
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
     public static function getBalance(int $id)
     {
         $transfers = Transfer::where('transfer_doughter_id', $id)->get();

@@ -43,6 +43,20 @@
                         </div>
 
                         <div class="mb-2">
+                            <label for="company_id" class="form-label mb-0">Izaberite kupca ili mesto troška</label>
+                            <select class="form-select @error('supplier_id') border border-danger @enderror"
+                                aria-label="Default select example"
+                                name="company_id">
+                                <option value="0"></option>
+
+                                @foreach ($companies as $company)
+                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
                             <label for="description" class="form-label mb-0">Opis (broj naloga ili razlog)*</label>
                             <input type="text" class="form-control @error('description') border border-danger @enderror" id="description" value="{{ old('description') }}" name="description">
                         </div>
@@ -54,7 +68,7 @@
                     </form>
                 </div>
             </div>
-            
+
             <x-footer />
 
         </content>

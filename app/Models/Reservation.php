@@ -16,7 +16,8 @@ class Reservation extends Model
         'description',
         'reserved',
         'user_id',
-        'material_id'
+        'material_id',
+        'company_id'
     ];
 
     public function user() : BelongsTo
@@ -27,5 +28,10 @@ class Reservation extends Model
     public function material() : BelongsTo
     {
         return $this->belongsTo(Material::class);
+    }
+    
+    public function company() : BelongsTo
+    {
+        return $this->belongsTo(Company::class);
     }
 }
