@@ -34,7 +34,7 @@ class ReservationController extends Controller
             'material' => $material->where('id', $validatedData['id'])->first(),
             'quantities' => Quantity::where('material_id', $validatedData['id'])->get(),
             'reservations' => Reservation::where('material_id', $validatedData['id'])->get(),
-            'companies' => $company->where('company_role_id', '!=', 3)->orderBy('name')->get()
+            'companies' => $company->where('company_role_id', '!=', 4)->orderBy('name')->get()
         ]);
     }
 
