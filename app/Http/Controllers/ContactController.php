@@ -38,6 +38,7 @@ class ContactController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
+            'phone2' => 'nullable|string',
             'birthday' => 'nullable|date',
             'company_id' => 'required|exists:companies,id',
             'start_date' => 'required|date',

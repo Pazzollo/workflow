@@ -15,7 +15,7 @@ class Magacin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->role_id == 5 || $request->user()->role_id == 1) {
+        if (($request->user()->role_id == 5 || $request->user()->role_id == 1) || $request->user()->id == auth()->user()->id) {
             return $next($request);
         } else {
             return redirect()->route('warehouse.index')

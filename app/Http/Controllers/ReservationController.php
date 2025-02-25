@@ -98,7 +98,8 @@ class ReservationController extends Controller
         $validatedData = $request->validate([
             'quantity' => 'required|numeric',
             'description' => 'required|string|max:32',
-            'material_id' => 'required|numeric'
+            'material_id' => 'required|numeric',
+            'company_id' => 'required|numeric'
         ]);
         if($reservation->user_id != auth()->user()->id) {
             return redirect()->route('reservation.show', $reservation->material_id)
@@ -121,12 +122,13 @@ class ReservationController extends Controller
                 return redirect()->route('reservation.show', $reservation->material_id)->with('success', 'Rezervacija je uklonjena');
             } else return redirect()->route('reservation.show', $reservation->material_id)->with('error', 'Rezervaciju može poništiti samo '. $reservation->user->first_name . ' ' . $reservation->user->last_name);
         } elseif(isset($request['reserve'])) {
+            // dd($reservation);
             if(auth()->user()->role_id === 5 || auth()->user()->role_id === 1) {
                 try {
                     $data['material_id'] = $reservation->material_id;
                     $data['quantity'] = 0 - $reservation->quantity;
                     $data['description'] = $reservation->description;
-                    $data['company_id'] = 1;
+                    $data['company_id'] = $reservation->company_id;
                     $data['transfer'] = "Out";
                     $data['measure'] = "tabaka";
                     // dd($data);
