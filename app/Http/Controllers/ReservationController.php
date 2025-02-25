@@ -75,7 +75,7 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function edit($id, Company $company)
     {
         $reservation = Reservation::where('id', $id)->where('reserved', 1)->with(['material', 'user'])->first();
         // dd($reservation);
@@ -88,7 +88,8 @@ class ReservationController extends Controller
         return view('warehouse.reservations.edit', [
             'reservation' => $reservation,
             'material' => $material,
-            'quantities' => $quantities
+            'quantities' => $quantities,
+            'companies' => $company->where('company_role_id', '!=', 4)->orderBy('name')->get()
         ]);
     }
 
