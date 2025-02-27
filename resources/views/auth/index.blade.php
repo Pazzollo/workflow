@@ -1,5 +1,11 @@
 @extends('warehouse.layouts.app')
 
+@php
+    $title = 'Prijava';
+@endphp
+
+@section('title', $title)
+
 @section('content')
     <div id="wrapper">
 
